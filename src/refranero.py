@@ -15,4 +15,14 @@ class Refranero:
                 self.refranes.add(refran)
     
     def randomRefran(self):
-        return self.refranes[0]
+        item = self.refranes.pop()
+        self.refranes.update(item)
+        return item
+    
+    def refranApropiado(self, mensaje):
+        apropiados = set()
+        for palabra in mensaje.split(" "):
+            print(palabra)
+            return str(self.randomRefran())
+
+        

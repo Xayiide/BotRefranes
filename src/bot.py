@@ -30,6 +30,7 @@ class Bot:
     def addMsgHandlers(self):
         self.app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND,
                                             self.handleMsg))
+
     def run(self):
         self.app.run_polling()
         # Para aquí por algún motivo
@@ -68,11 +69,7 @@ class Bot:
                     await msg.reply_text("Sólo comandos en chats privados")
                 else: # GROUP or SUPERGROUP
                     u.screen(userid, username, msg.text, msg.chat.id)
-                    resp = "Eres el usuario " + str(userid)
-                    if (username != None):
-                        resp += " y tu @ es " + username
-                    else:
-                        resp += " y no tienes @"
+                    resp = self.refranero.refranApropiado(msg.text)
                     await msg.reply_text(resp)
         except Exception as e:
             print("Error - Bot::handleMsg")
