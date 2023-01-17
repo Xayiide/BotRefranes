@@ -3,6 +3,7 @@
     "bot": {
         "admins": [1, 2, 3]
     },
+    "rffile": "__refranes/todos.txt",
     "scraper": {
         "urls": {
             "dominio" : "cvc.cervantes.es",

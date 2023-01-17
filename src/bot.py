@@ -1,5 +1,8 @@
 import config as cfg
 import util   as u
+import scrap
+import refranero as rfn
+
 import telegram
 from telegram     import Update, ForceReply
 from telegram.ext import CommandHandler, MessageHandler
@@ -8,15 +11,18 @@ from telegram.ext import ContextTypes, Application, filters
 
 
 class Bot:
-    app     = None
-    config  = None
+    config    = None
+    app       = None
+    refranero = None
 
     def __init__(self, cfgfn):
         self.config = cfg.Config(cfgfn)
         self.app = Application.builder().token(self.config.getToken()).build()
+        self.refranero = rfn.Refranero()
         self.addCmdHandlers()
         self.addMsgHandlers()
-        print("Bot corriendo")
+        self.retrieveRefranes()
+        print("Bot corriendo.")
 
     def addCmdHandlers(self):
         self.app.add_handler(CommandHandler("start", self.start))
@@ -27,7 +33,23 @@ class Bot:
     def run(self):
         self.app.run_polling()
         # Para aquí por algún motivo
-        print("\nBot terminado")
+        print("\nBot terminado.")
+
+    def retrieveRefranes(self):
+        if alreadyScraped(self.config.getRefFile()):
+            print("Existen refranes en fichero. No se escrapea.")
+            self.refranero.loadFromFile(self.config.getRefFile())
+        else:
+            dominio  = self.config.getUrls('dominio')
+            ruta     = self.config.getUrls('ruta')
+            listado  = self.config.getUrls('listado')
+            busqueda = self.config.getUrls('busqueda')
+            self.sc  = scrap.Scraper(dominio, ruta, listado, busqueda)
+
+            print("No existen refranes en ficheros. Escrapeando...")
+            self.refranero.load(sc.parseRefranero())
+            print("Escrapeo finalizado.")
+
 
     async def handleMsg(self,
                    update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -64,7 +86,6 @@ class Bot:
         text     = update.message.text
         u.screen(userid, username, text)
 
-
     async def start(self,
                     update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         user = update.effective_user
@@ -72,3 +93,16 @@ class Bot:
             rf"Hi {user.mention_html()}!",
             reply_markup=ForceReply(selective=True),
         )
+
+
+
+
+
+def alreadyScraped(file):
+    try:
+        with open(file, "r") as f:
+            if len(f.readlines()) < 1627:
+                return False
+            return True
+    except:
+        return False
