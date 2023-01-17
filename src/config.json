@@ -1,0 +1,13 @@
+{
+    "tkfile": "token.txt",
+    "bot": {
+        "admins": [1, 2, 3]
+    },
+    "scraper": {
+        "urls": {
+            "base"    : "cvc.cervantes.es",
+            "listado" : "/lengua/refranero/listado.aspx",
+            "busqueda": "/lengua/refranero/Busqueda.aspx"
+        }
+    }
+}
