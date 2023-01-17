@@ -5,9 +5,10 @@
     },
     "scraper": {
         "urls": {
-            "base"    : "cvc.cervantes.es",
-            "listado" : "/lengua/refranero/listado.aspx",
-            "busqueda": "/lengua/refranero/Busqueda.aspx"
+            "dominio" : "cvc.cervantes.es",
+            "ruta"    : "/lengua/refranero/",
+            "listado" : "listado.aspx",
+            "busqueda": "Busqueda.aspx"
         }
     }
 }

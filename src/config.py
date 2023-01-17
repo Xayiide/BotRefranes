@@ -26,8 +26,8 @@ class Config:
     def readUrls(self, cfg):
         ret  = {}
         urls = cfg['scraper']['urls']
-        base = urls['base']
-        ret['base']     = urls['base']
+        ret['dominio']  = urls['dominio']
+        ret['ruta']     = urls['ruta']
         ret['listado']  = urls['listado']
         ret['busqueda'] = urls['busqueda']
         return ret

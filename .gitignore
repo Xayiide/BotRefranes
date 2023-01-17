@@ -9,3 +9,6 @@ __refranes
 
 # Fichero de notas
 TODO.md
+
+# Ficheros intermedios o temporales
+*.swp

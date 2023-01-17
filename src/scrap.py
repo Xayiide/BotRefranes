@@ -20,5 +20,8 @@ class Scraper:
         sopa = bs(resp.read(), 'html.parser')
         return sopa
     
-    def selectRefranes(self, sopa):
+    def retrieveIndex(self, sopa):
+        return sopa.find('ol', {'id':'menu_az'})
+    
+    def retrieveRefranes(self, sopa):
         return [refran.text for refran in sopa.find('ol', {'id':'lista_az'}).find_all('li')]
