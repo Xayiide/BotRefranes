@@ -1,10 +1,11 @@
+import random
 
 class Refranero:
-    refranes = set()
+    refranes = list()
 
     def __init__(self):
         pass
-    
+
     def load(self, refranes):
         self.refranes = refranes
 
@@ -12,17 +13,11 @@ class Refranero:
         with open(file, "r") as f:
             refranes = f.readlines()
             for refran in refranes:
-                self.refranes.add(refran)
-    
-    def randomRefran(self):
-        item = self.refranes.pop()
-        self.refranes.update(item)
-        return item
-    
-    def refranApropiado(self, mensaje):
-        apropiados = set()
-        for palabra in mensaje.split(" "):
-            print(palabra)
-            return str(self.randomRefran())
+                self.refranes.append(refran)
 
-        
+    def refranAleatorio(self):
+        return random.choice(self.refranes)
+
+    def refranApropiado(self, mensaje):
+        pass
+        #return self.refranAleatorio()

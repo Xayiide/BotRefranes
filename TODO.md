@@ -1,3 +1,5 @@
 # Lista de cosas por hacer:
-1. Diferenciar entre mensajes de grupo y mensajes privados. Se puede lograr con
-el [campo *tipo* del objeto **Chat**](https://core.telegram.org/bots/api#chat)
+1. Decidir cómo procesar todos los mensajes para decidir qué responder a los mensajes normales en grupos
+2. Que pueda mandar más información sobre refranes
+3. ¿Refrán adecuado dadas unas palabras?
+4. Hacer base de datos

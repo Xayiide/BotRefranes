@@ -34,10 +34,10 @@ class Scraper:
         return [refran.text for refran in sopa.find('ol', {'id':'lista_az'}).find_all('li')]
 
     def parseRefranero(self):
-        refranero = set()
-        reachedz = False
-        query    = self.listado + "{}"
-        ruta     = self.ruta + "{}"
+        refranero = list()
+        reachedz  = False
+        query     = self.listado + "{}"
+        ruta      = self.ruta + "{}"
 
         self.connect(self.dominio)
 
@@ -47,7 +47,7 @@ class Scraper:
         actual   = letras.find('a', {'class':'activo'})
 
         for refran in refranes:
-            refranero.add(refran)
+            refranero.append(refran)
 
         sig   = letras.findNext('a').findNext('a')
         query = sig.get('href')
@@ -59,7 +59,7 @@ class Scraper:
             actual = letras.find('a', {'class':'activo'})
 
             for refran in refranes:
-                refranero.add(refran)
+                refranero.append(refran)
             
             if (actual.text == 'Z'):
                 reachedz = True
